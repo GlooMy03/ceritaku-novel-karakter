@@ -30,9 +30,44 @@
                 <input type="text" name="q" placeholder="Cari judul..." value="{{ request('q') }}">
             </form>
 
-            <div class="auth">
-                <a href="#">Log In</a>
-                <a href="#" class="btn-garis">Sign Up Now</a>
+           <div class="auth">
+                @auth
+                    <div class="akun">
+                        <button type="button" class="akun-tombol" id="akunTombol" aria-expanded="false">
+                            <span class="avatar">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</span>
+                            <span class="akun-nama">{{ Auth::user()->name }}</span>
+                            <span class="panah">▾</span>
+                        </button>
+
+                        <div class="akun-menu" id="akunMenu">
+                            <div class="akun-kepala">
+                                <span class="avatar besar">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</span>
+                                <div>
+                                    <strong>{{ Auth::user()->name }}</strong>
+                                    <small>{{ Auth::user()->email }}</small>
+                                </div>
+                            </div>
+
+                            <a href="#">Profil Saya</a>
+                            <hr>
+                            <a href="#">Kotak Masuk</a>
+                            <a href="#">Pembaruan <span class="notif">3</span></a>
+                            <a href="#">Perpustakaan</a>
+                            <hr>
+                            <a href="#">Bahasa: Bahasa Indonesia</a>
+                            <a href="#">Bantuan</a>
+                            <a href="#">Pengaturan</a>
+
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="menu-keluar">Keluar</button>
+                            </form>
+                        </div>
+                    </div>
+                @else
+                    <a href="{{ route('login') }}">Log In</a>
+                    <a href="{{ route('register') }}" class="btn-garis">Sign Up Now</a>
+                @endauth
             </div>
         </div>
     </nav>
@@ -62,7 +97,25 @@
         </div>
         <div class="container hak-cipta">© {{ date('Y') }} CeritaKu. Semua hak dilindungi.</div>
     </footer>
+    <script>
+        const akunTombol = document.getElementById('akunTombol');
+        const akunMenu = document.getElementById('akunMenu');
 
+        if (akunTombol) {
+            akunTombol.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const buka = akunMenu.classList.toggle('buka');
+                akunTombol.setAttribute('aria-expanded', buka);
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!akunMenu.contains(e.target)) {
+                    akunMenu.classList.remove('buka');
+                    akunTombol.setAttribute('aria-expanded', false);
+                }
+            });
+        }
+    </script>
     @stack('scripts')
 </body>
 </html>

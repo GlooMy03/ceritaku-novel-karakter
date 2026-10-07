@@ -94,6 +94,40 @@ a { color: inherit; text-decoration: none; }
 .rak-kategori .kartu { flex: 0 0 150px; }
 .rak-kategori .kartu h3 { font-size: 14px; }
 
+/* FORM LOGIN & DAFTAR */
+.form-auth { max-width: 420px; margin: 24px auto; padding: 32px; border: 1px solid #eee; border-radius: 16px; box-shadow: 0 8px 24px rgba(0, 0, 0, .06); }
+.form-auth h1 { font-size: 30px; margin-bottom: 20px; }
+.form-auth label { display: block; margin: 14px 0 6px; font-weight: 600; font-size: 14px; }
+.form-auth input[type="text"], .form-auth input[type="email"], .form-auth input[type="password"] { width: 100%; padding: 11px 14px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 15px; }
+.form-auth input:focus { outline: 2px solid var(--oranye); border-color: transparent; }
+.form-auth .centang { display: flex; align-items: center; gap: 8px; font-weight: 400; }
+.btn-penuh { width: 100%; margin-top: 22px; padding: 13px; }
+.galat { color: #dc2626; font-size: 13px; margin-top: 4px; }
+.alihan { margin-top: 18px; text-align: center; font-size: 14px; color: var(--abu); }
+.alihan a { color: var(--oranye); font-weight: 600; }
+.tombol-keluar { background: transparent; cursor: pointer; font: inherit; font-weight: 600; color: var(--navy); }
+.auth form { margin: 0; }
+
+/* MENU AKUN */
+.akun { position: relative; }
+.akun-tombol { display: flex; align-items: center; gap: 8px; background: #fff; border: 1px solid #e5e7eb; border-radius: 999px; padding: 5px 14px 5px 5px; cursor: pointer; font: inherit; font-weight: 600; color: var(--navy); }
+.akun-tombol:hover { border-color: var(--oranye); }
+.akun-nama { max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--oranye); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; }
+.avatar.besar { width: 44px; height: 44px; font-size: 18px; flex-shrink: 0; }
+.panah { font-size: 12px; }
+
+.akun-menu { display: none; position: absolute; right: 0; top: calc(100% + 10px); width: 280px; padding: 10px; background: #fff; color: #111827; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 16px 40px rgba(0, 0, 0, .15); z-index: 100; }
+.akun-menu.buka { display: block; }
+.akun-kepala { display: flex; align-items: center; gap: 12px; padding: 10px; margin-bottom: 6px; background: #f3f4f6; border-radius: 12px; }
+.akun-kepala strong { display: block; color: #111827; }
+.akun-kepala small { display: block; color: #6b7280; font-size: 12px; word-break: break-all; }
+.akun-menu a, .menu-keluar { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 10px 12px; border-radius: 8px; font-size: 15px; font-weight: 500; color: #111827; background: transparent; border: 0; cursor: pointer; text-align: left; font-family: inherit; }
+.akun-menu a:hover, .menu-keluar:hover { background: #fff4ed; color: var(--oranye); }
+.menu-keluar { color: #111827; }
+.akun-menu hr { border: 0; border-top: 1px solid #e5e7eb; margin: 6px 0; }
+.notif { background: var(--oranye); color: #fff; font-size: 12px; font-weight: 700; padding: 1px 9px; border-radius: 999px; }
+
 @media (max-width: 800px) {
     .hero .container, .detail, .footer-isi { grid-template-columns: 1fr; }
     .hero h1 { font-size: 38px; }

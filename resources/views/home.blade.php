@@ -70,7 +70,9 @@
             <div class="cta">
                 <h2>Mulai membaca dan simpan koleksimu</h2>
                 <p>Daftar gratis untuk menyimpan cerita favorit dan mendapat update terbaru.</p>
-                <a href="#" class="btn-putih">Sign Up Now</a>
+                @guest
+                    <a href="{{ route('register') }}" class="btn-putih">Sign Up Now</a>
+                @endguest
             </div>
         </div>
     </section>
