@@ -128,6 +128,22 @@ a { color: inherit; text-decoration: none; }
 .akun-menu hr { border: 0; border-top: 1px solid #e5e7eb; margin: 6px 0; }
 .notif { background: var(--oranye); color: #fff; font-size: 12px; font-weight: 700; padding: 1px 9px; border-radius: 999px; }
 
+/* CRUD KARYA */
+.form-lebar { max-width: 640px; }
+.form-auth textarea, .form-auth select { width: 100%; padding: 11px 14px; border: 1px solid #d1d5db; border-radius: 8px; font: inherit; font-size: 15px; }
+.form-auth textarea:focus, .form-auth select:focus { outline: 2px solid var(--oranye); border-color: transparent; }
+.tag-pilih { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px 12px; }
+.tombol-tulis { padding: 10px 22px; font-size: 15px; display: inline-block; }
+.sukses { background: #dcfce7; color: #166534; padding: 10px 16px; border-radius: 8px; margin-bottom: 16px; }
+.baris-karya { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px; border: 1px solid #eee; border-radius: 12px; margin-bottom: 12px; }
+.baris-karya h3 { margin-bottom: 6px; }
+.baris-karya small { color: var(--abu); margin-left: 8px; }
+.aksi { display: flex; gap: 10px; align-items: center; flex-shrink: 0; }
+.aksi form { margin: 0; }
+.aksi .btn-garis { padding: 6px 16px; font-weight: 600; }
+.btn-hapus { background: #fff; color: #dc2626; border: 2px solid #dc2626; border-radius: 8px; padding: 6px 16px; font: inherit; font-weight: 600; cursor: pointer; }
+.btn-hapus:hover { background: #dc2626; color: #fff; }
+
 @media (max-width: 800px) {
     .hero .container, .detail, .footer-isi { grid-template-columns: 1fr; }
     .hero h1 { font-size: 38px; }
