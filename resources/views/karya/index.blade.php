@@ -25,6 +25,7 @@
                         <small>{{ number_format($cerita->jumlah_baca, 0, ',', '.') }} dibaca</small>
                     </div>
                     <div class="aksi">
+                        <a href="{{ route('karya.bab.index', $cerita) }}" class="btn-garis">Bab ({{ $cerita->babs_count }})</a>
                         <a href="{{ route('karya.edit', $cerita) }}" class="btn-garis">Edit</a>
                         <form action="{{ route('karya.destroy', $cerita) }}" method="POST"
                               onsubmit="return confirm('Hapus cerita ini? Tindakan ini tidak bisa dibatalkan.')">

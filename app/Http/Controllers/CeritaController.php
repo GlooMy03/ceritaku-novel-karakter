@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Bab;
 use App\Models\Cerita;
 use App\Models\Kategori;
+use App\Models\ReadingList;
 use App\Models\Tag;
-
+use Illuminate\Http\Request;
 
 class CeritaController extends Controller
 {
@@ -42,7 +43,39 @@ class CeritaController extends Controller
 
     public function show(Cerita $cerita)
     {
-        $cerita->load(['kategori', 'tags']);
-        return view('cerita.show', compact('cerita'));
+        $cerita->load(['kategori', 'tags', 'babs' => fn ($q) => $q->orderBy('nomor')]);
+
+        // Bab terakhir yang dibaca akun ini (kalau sudah login)
+        $terakhir = auth()->check()
+            ? ReadingList::with('bab')
+                ->where('user_id', auth()->id())
+                ->where('cerita_id', $cerita->id)
+                ->first()
+            : null;
+
+        return view('cerita.show', compact('cerita', 'terakhir'));
+    }
+
+    public function baca(Cerita $cerita, Bab $bab)
+    {
+        // Tambah jumlah baca tanpa mengubah updated_at
+        Cerita::withoutTimestamps(fn () => $cerita->increment('jumlah_baca'));
+
+        // Catat ke Reading List kalau sudah login
+        if (auth()->check()) {
+            $item = ReadingList::firstOrNew([
+                'user_id' => auth()->id(),
+                'cerita_id' => $cerita->id,
+            ]);
+            $item->bab_id = $bab->id;
+            $item->save();
+            $item->touch();
+        }
+
+        $semuaBab = $cerita->babs()->orderBy('nomor')->get();
+        $sebelumnya = $semuaBab->where('nomor', '<', $bab->nomor)->last();
+        $berikutnya = $semuaBab->where('nomor', '>', $bab->nomor)->first();
+
+        return view('cerita.baca', compact('cerita', 'bab', 'semuaBab', 'sebelumnya', 'berikutnya'));
     }
 }

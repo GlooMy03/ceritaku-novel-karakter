@@ -6,13 +6,18 @@ use Illuminate\Http\Request;
 use App\Models\Cerita;
 use App\Models\Kategori;
 use App\Models\Tag;
+use App\Models\Bab;
 
 class KaryaController extends Controller
 {
     // READ: pustaka cerita milik akun yang login
     public function index(Request $request)
     {
-        $ceritas = $request->user()->ceritas()->with(['kategori', 'tags'])->latest()->get();
+        $ceritas = $request->user()->ceritas()
+            ->with(['kategori', 'tags'])
+            ->withCount('babs')
+            ->latest()
+            ->get();
 
         return view('karya.index', compact('ceritas'));
     }
@@ -26,10 +31,14 @@ class KaryaController extends Controller
         ]);
     }
 
-    // CREATE: simpan
+    // CREATE: simpan cerita beserta bab pertama
     public function store(Request $request)
     {
         $data = $this->validasi($request);
+        $bab = $request->validate([
+            'judul_bab' => 'required|string|max:255',
+            'isi_bab' => 'required|string',
+        ]);
 
         $cerita = $request->user()->ceritas()->create([
             'judul' => $data['judul'],
@@ -40,6 +49,12 @@ class KaryaController extends Controller
 
         $cerita->tags()->sync($data['tags'] ?? []);
 
+        $cerita->babs()->create([
+            'nomor' => 1,
+            'judul' => $bab['judul_bab'],
+            'isi' => Bab::bersihkan($bab['isi_bab']),
+        ]);
+
         return redirect()->route('karya.index')->with('sukses', 'Cerita berhasil ditambahkan.');
     }
 
@@ -47,7 +62,7 @@ class KaryaController extends Controller
     public function edit(Request $request, Cerita $cerita)
     {
         $this->pastikanPemilik($request, $cerita);
-        $cerita->load('tags');
+        $cerita->load(['tags', 'babs' => fn ($q) => $q->orderBy('nomor')]);
 
         return view('karya.edit', [
             'cerita' => $cerita,

@@ -23,4 +23,9 @@ class Cerita extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function babs()
+    {
+        return $this->hasMany(Bab::class);
+    }
 }

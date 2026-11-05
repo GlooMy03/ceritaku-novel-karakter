@@ -51,10 +51,11 @@
                             <a href="#">Profil Saya</a>
                             <a href="{{ route('karya.create') }}">Tulis Cerita Saya</a>
                             <a href="{{ route('karya.index') }}">Pustaka Cerita Saya</a>
+                            <a href="{{ route('reading-list.index') }}">Reading List</a>
                             <hr>
                             <a href="#">Kotak Masuk</a>
                             <a href="#">Pembaruan <span class="notif">3</span></a>
-                            <a href="#">Perpustakaan</a>
+                            
                             <hr>
                             <a href="#">Bahasa: Bahasa Indonesia</a>
                             <a href="#">Bantuan</a>
